@@ -113,6 +113,32 @@
                                 CommandParameter="{x:Null}"
                                 Header="Reset" />
                         </MenuItem>
+                        <MenuItem Header="Pan/Tilt">
+                            <MenuItem Command="{Binding SetPanXOffsetCommand}" Header="Pan left">
+                                <MenuItem.CommandParameter>
+                                    <sys:Int32>50</sys:Int32>
+                                </MenuItem.CommandParameter>
+                            </MenuItem>
+                            <MenuItem Command="{Binding SetPanXOffsetCommand}" Header="Pan right">
+                                <MenuItem.CommandParameter>
+                                    <sys:Int32>-50</sys:Int32>
+                                </MenuItem.CommandParameter>
+                            </MenuItem>
+                            <MenuItem Command="{Binding SetPanYOffsetCommand}" Header="Tilt up">
+                                <MenuItem.CommandParameter>
+                                    <sys:Int32>50</sys:Int32>
+                                </MenuItem.CommandParameter>
+                            </MenuItem>
+                            <MenuItem Command="{Binding SetPanYOffsetCommand}" Header="Tilt down">
+                                <MenuItem.CommandParameter>
+                                    <sys:Int32>-50</sys:Int32>
+                                </MenuItem.CommandParameter>
+                            </MenuItem>
+                            <MenuItem
+                                Command="{Binding ResetPanOffsetCommand}"
+                                Header="Reset">
+                            </MenuItem>
+                        </MenuItem>
                         <MenuItem Header="Speed">
                             <MenuItem Command="{Binding SetSpeedCommand}" Header="Speed up">
                                 <MenuItem.CommandParameter>

@@ -31,6 +31,9 @@ public class VideoDialogViewModel : DialogViewModelBase
     private ICommand _toggleFullScreenCommand;
     private ICommand _moveToCornerCommand;
     private ICommand _setZoomCommand;
+    private ICommand _setPanXOffsetCommand;
+    private ICommand _setPanYOffsetCommand;
+    private ICommand _resetPanOffsetCommand;
     private ICommand _setSpeedCommand;
     private ICommand _selectAspectRatioCommand;
     private ICommand _selectAudioDeviceCommand;
@@ -86,6 +89,9 @@ public class VideoDialogViewModel : DialogViewModelBase
     public ICommand ToggleFullScreenCommand => _toggleFullScreenCommand ??= new DelegateCommand<long?>(ToggleFullScreenExecute);
     public ICommand MoveToCornerCommand => _moveToCornerCommand ??= new DelegateCommand<WindowLocation?>(MoveToCornerExecute, CanMoveToCornerExecute).ObservesProperty(() => DialogSettings.FullScreen);
     public ICommand SetZoomCommand => _setZoomCommand ??= new DelegateCommand<int?>(SetZoomExecute).ObservesCanExecute(() => MediaPlayer.IsStarted);
+    public ICommand SetPanXOffsetCommand => _setPanXOffsetCommand ??= new DelegateCommand<int?>(SetPanXOffsetExecute).ObservesCanExecute(() => MediaPlayer.IsStarted);
+    public ICommand SetPanYOffsetCommand => _setPanYOffsetCommand ??= new DelegateCommand<int?>(SetPanYOffsetExecute).ObservesCanExecute(() => MediaPlayer.IsStarted);
+    public ICommand ResetPanOffsetCommand => _resetPanOffsetCommand ??= new DelegateCommand(ResetPanOffsetExecute).ObservesCanExecute(() => MediaPlayer.IsStarted);
     public ICommand SetSpeedCommand => _setSpeedCommand ??= new DelegateCommand<bool?>(SetSpeedExecute, CanSetSpeedExecute).ObservesProperty(() => MediaPlayer.IsStarted).ObservesProperty(() => PlayableContent);
     public ICommand SelectAspectRatioCommand => _selectAspectRatioCommand ??= new DelegateCommand<IAspectRatio>(SelectAspectRatioExecute, CanSelectAspectRatioExecute).ObservesProperty(() => MediaPlayer.IsStarted).ObservesProperty(() => MediaPlayer.AspectRatio);
     public ICommand SelectAudioDeviceCommand => _selectAudioDeviceCommand ??= new DelegateCommand<IAudioDevice>(SelectAudioDeviceExecute, CanSelectAudioDeviceExecute).ObservesProperty(() => MediaPlayer.IsStarted).ObservesProperty(() => MediaPlayer.AudioDevice);
@@ -416,6 +422,42 @@ public class VideoDialogViewModel : DialogViewModelBase
         }
 
         ShowNotification($"Zoom: {MediaPlayer.Zoom}");
+    }
+
+    private void SetPanXOffsetExecute(int? offset)
+    {
+        if(offset.HasValue)
+        {
+            MediaPlayer.PanXOffset += offset.Value;
+        }
+        else
+        {
+            MediaPlayer.PanXOffset = 0;
+        }
+
+        ShowNotification($"Pan: {MediaPlayer.PanXOffset}");
+    }
+
+    private void SetPanYOffsetExecute(int? offset)
+    {
+        if (offset.HasValue)
+        {
+            MediaPlayer.PanYOffset += offset.Value;
+        }
+        else
+        {
+            MediaPlayer.PanYOffset = 0;
+        }
+
+        ShowNotification($"Tilt: {MediaPlayer.PanYOffset}");
+    }
+
+    private void ResetPanOffsetExecute()
+    {
+          MediaPlayer.PanXOffset = 0;
+          MediaPlayer.PanYOffset = 0;
+
+          ShowNotification($"Pan/Tilt: 0");
     }
 
     private bool CanSetSpeedExecute(bool? speedUp)

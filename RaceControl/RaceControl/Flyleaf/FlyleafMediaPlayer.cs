@@ -14,6 +14,8 @@ public class FlyleafMediaPlayer : BindableBase, IMediaPlayer
     private int _volume = -1;
     private bool _isMuted;
     private int _zoom;
+    private int _panXOffset;
+    private int _panYOffset;
     private double _speed = 1;
     private VideoQuality _videoQuality = VideoQuality.Default;
     private ObservableCollection<IAspectRatio> _aspectRatios;
@@ -95,11 +97,39 @@ public class FlyleafMediaPlayer : BindableBase, IMediaPlayer
         get => _zoom;
         set
         {
-            var zoom = Math.Min(Math.Max(value, -250), 250);
+            var zoom = Math.Min(Math.Max(value, -500), 500);
 
             if (SetProperty(ref _zoom, zoom))
             {
                 Player.Zoom = _zoom;
+            }
+        }
+    }
+
+    public int PanXOffset
+    {
+        get => _panXOffset;
+        set
+        {
+            var offset = Math.Min(Math.Max(value, -1000), 1000);
+
+            if (SetProperty(ref _panXOffset, offset))
+            {
+                Player.PanXOffset = value;
+            }
+        }
+    }
+
+    public int PanYOffset
+    {
+        get => _panYOffset;
+        set
+        {
+            var offset = Math.Min(Math.Max(value, -1000), 1000);
+
+            if (SetProperty(ref _panYOffset, offset))
+            {
+                Player.PanYOffset = value;
             }
         }
     }

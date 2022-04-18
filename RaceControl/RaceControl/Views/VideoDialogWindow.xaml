@@ -43,6 +43,27 @@
                 <sys:Int32>-50</sys:Int32>
             </KeyBinding.CommandParameter>
         </KeyBinding>
+        <KeyBinding Key="NumPad2" Command="{Binding SetPanYOffsetCommand}">
+            <KeyBinding.CommandParameter>
+                <sys:Int32>-50</sys:Int32>
+            </KeyBinding.CommandParameter>
+        </KeyBinding>
+        <KeyBinding Key="NumPad8" Command="{Binding SetPanYOffsetCommand}">
+            <KeyBinding.CommandParameter>
+                <sys:Int32>50</sys:Int32>
+            </KeyBinding.CommandParameter>
+        </KeyBinding>
+        <KeyBinding Key="NumPad6" Command="{Binding SetPanXOffsetCommand}">
+            <KeyBinding.CommandParameter>
+                <sys:Int32>-50</sys:Int32>
+            </KeyBinding.CommandParameter>
+        </KeyBinding>
+        <KeyBinding Key="NumPad4" Command="{Binding SetPanXOffsetCommand}">
+            <KeyBinding.CommandParameter>
+                <sys:Int32>50</sys:Int32>
+            </KeyBinding.CommandParameter>
+        </KeyBinding>
+        <KeyBinding Key="NumPad5" Command="{Binding ResetPanOffsetCommand}" />
         <KeyBinding Key="Multiply" Command="{Binding SetSpeedCommand}">
             <KeyBinding.CommandParameter>
                 <sys:Boolean>True</sys:Boolean>

@@ -20,6 +20,10 @@ public interface IMediaPlayer
 
     int Zoom { get; set; }
 
+    int PanXOffset { get; set; }
+
+    int PanYOffset { get; set; }
+
     double Speed { get; set; }
 
     VideoQuality VideoQuality { get; set; }
